@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    span {cursor:pointer; }
+
+    .minus, .plus{
+        width:20px;
+        height:20px;
+        background:#f2f2f2;
+        border-radius:4px;
+        padding:8px 5px 8px 5px;
+        border:1px solid #ddd;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+    }
+    input{
+        height:34px;
+  width: 100px;
+  text-align: center;
+  font-size: 26px;
+        border:1px solid #ddd;
+        border-radius:4px;
+  display: inline-block;
+  vertical-align: middle;
+
+</style>
+<body>
+<h2><a href="{% url 'index' %}">Bosh sahifa</a></h2>
+<h2>Savatcha</h2>
+<h1>Savatchadagi mahsulotlar</h1>
+<h3>Umumiy soni: {{ cart_total_quantity }} Umumiy narxi: {{cart_total_price}}</h3>
+<ul>
+    {% for product in order_products %}
+    <hr>
+    <li><h3>Nomi: {{ product.product.name }}</h3></li>
+    <li>Narxi: {{ product.product.price }} $</li>
+    <li>Miqdori: {{ product.quantity }}</li>
+    <li>
+        <div class="number">
+            <a href="{% url 'to_cart' product.product.pk 'delete' %}" class="minus" style="text-decoration: none">-</a>
+            <input type="text" value="{{ product.quantity }}"/>
+            <a href="{% url 'to_cart' product.product.pk 'add' %}" class="plus" style="text-decoration: none">+</a>
+        </div>
+    </li>
+    <li style="font-size: 25px">Umumiy narxi: {{product.get_total_price}}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
